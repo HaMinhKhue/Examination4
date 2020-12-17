@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head
+        th:replace="/layout :: head">
+    <style>
+        .warningg{
+            color: darkred;
+        }
+    </style>
+</head>
+<body>
+<h3>Tạo thành phố</h3>
+
+<div id="form">
+    <form th:action="@{/create}" th:object="${city} " method="POST">
+        <div>
+            <label>Tên:</label>
+            <div class="warningg">
+                <th:block th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></th:block>
+            </div>
+            <input type="text" th:field="*{name}" required/>
+        </div><br>
+        <div>
+            <label>Quốc gia:</label>
+            <select th:field="*{country}">
+                <option th:each="c : ${countries}" th:value="${c.id}" th:text="${c.country}"/>
+            </select>
+        </div><br><br>
+        <div>
+            <label>Diện tích:</label>
+            <div class="warningg">
+                <th:block th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></th:block>
+            </div>
+            <input type="text" th:field="*{area}" required/>
+        </div>
+        <div>
+            <label>Dân số:</label>
+            <div class="warningg">
+                <th:block th:if="${#fields.hasErrors('population')}" th:errors="*{population}"></th:block>
+            </div>
+            <input type="text" th:field="*{population}" required/>
+        </div>
+        <div>
+            <label>GDP:</label>
+            <div class="warningg">
+                <th:block th:if="${#fields.hasErrors('gdp')}" th:errors="*{gdp}"></th:block>
+            </div>
+            <input type="text" th:field="*{gdp}" required/>
+        </div>
+        <div>
+            <label>Giới thiệu:</label>
+            <div class="warningg">
+                <th:block th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></th:block>
+            </div>
+            <input type="text" th:field="*{description}" required/>
+        </div>
+        <button type="submit">Nhập thành phố</button>
+        <a role="button" th:href="@{/cities}">Quay lại danh sách thành phố</a>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
